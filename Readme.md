@@ -7,7 +7,11 @@ In our logging system we might want to subscribe to not only logs based on sever
 ### Topic exchange
 Messages sent to a topic exchange can't have an arbitrary routing_key - it must be a list of words, delimited by dots.
 The words can be anything, but usually they specify some features connected to the message.
-A few valid routing key examples: "stock.usd.nyse", "nyse.vmw", "quick.orange.rabbit".
+A few valid routing key examples:
+`stock.usd.nyse`
+`nyse.vmw`
+`quick.orange.rabbit`
+
 There can be as many words in the routing key as you like, up to the limit of 255 bytes.
 
 The binding key must also be in the same form.
@@ -33,7 +37,19 @@ These bindings can be summarised as:
 - Q2 wants to hear everything about rabbits, and everything about lazy animals.
 
 
+----
+### Testing
 
+To receive all logs:
+`node subscribe "#"`
+To receive all logs from facility <b>kern</b>
+`node subscribe kern`
+To receive only critical logs
+`node subscribe "*.critical"`
 
------
+To emit a log with a routing key "kern.critical" type:
+`node publish "kern.critical" "A critical kernel error"`
+Also try this and other messages
+`node publish "kern" "Kern log"`
+
 Detail tutorial can be found here https://www.rabbitmq.com/tutorials/tutorial-five-javascript.html
